@@ -3,7 +3,7 @@ title: "Rock On Lyrics: Report for Project 4"
 output: html_notebook
 ---
 
-### Qing Yin
+### Name: Qing Yin
 
 When someone gives you a piece of melody, is it possible for you to fill in the lyrics? When you listen to some random music, is it possible for you to predict the words that may appear in this music?
 
