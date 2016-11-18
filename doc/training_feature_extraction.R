@@ -69,6 +69,7 @@ for(i in 1:2350){
 colnames(pitch_matrix)<-c(paste0("pitch_",1:500))
 # timbre
 # this feature does not improve the result
+# kmeans cluster does not converge within 500 iterations
 #all_timbre<-vector()
 #for(i in 1:ncol(sound)){
 #  all_timbre<-cbind(all_timbre,sound[13,i][[1]])
