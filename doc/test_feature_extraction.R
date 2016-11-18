@@ -15,6 +15,7 @@ for(i in 1:ncol(sound_test)){
   max_loudness_test[i]<-max(sound_test[8,i][[1]])
   average_segment_rate_test[i]<-mean(diff(sound_test[12,i][[1]]))
 }
+setwd("G:/Columbia/STAT GR5243/project04")
 load("fit_loudness.RData")
 loudness_test<-cbind(1,average_max_loudness_test,dynamic_range_test,max_loudness_test,average_segment_rate_test)%*%fit_loudness$coefficients
 loudness_test<-as.vector(loudness_test)
@@ -37,9 +38,9 @@ for(i in 1:ncol(sound_test)){
 }
 # tatum duration
 average_tatum_duration_test<-vector()
-# 16: tatums_start
+# 15: tatums_start
 for(i in 1:ncol(sound_test)){
-  average_tatum_duration_test[i]<-mean(diff(sound_test[16,i][[1]]))
+  average_tatum_duration_test[i]<-mean(diff(sound_test[15,i][[1]]))
 }
 # pitch
 all_pitch_test<-vector()

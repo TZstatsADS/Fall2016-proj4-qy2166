@@ -3,7 +3,10 @@
 ############################################################
 setwd("G:/Columbia/STAT GR5243/project04/test data")
 library(rhdf5)
-filenames_test<-list.files(recursive=T)
+filenames_test<-vector()
+for(i in 1:100){
+  filenames_test[i]<-paste0("testsong",i,".h5")
+}
 filenumber_test<-length(filenames_test)
 sound_test<-vector()
 for(i in 1:filenumber_test){
@@ -12,7 +15,7 @@ for(i in 1:filenumber_test){
 }
 columnnames_test<-vector()
 for(i in 1:filenumber_test){
-  columnnames_test[i]<-substr(filenames_test[i],7,24)
+  columnnames_test[i]<-filenames_test[i]
 }
 colnames(sound_test)<-columnnames_test
 ############################################################

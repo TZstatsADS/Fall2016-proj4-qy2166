@@ -34,7 +34,7 @@ adjust_prob<-function(lyr,label){
   }
   result<-t(result)
   result<-cbind(colnames(new_lyr)[2:5001],result)
-  result<-result[-c(1,2,5:29),]
+  result <- result[-c(1,2,5:29),]
   return(result)
 }
 
@@ -58,7 +58,7 @@ write.csv(label20,file="label20.csv")
 write.csv(rank20,file="termsrank20.csv")
 adjustprob20<-adjust_prob(lyr,label20)
 prob_new<-adjustprob20[,-c(1)]
-prob_num<-matrix(0,4973,20)
+prob_num<-matrix(0,5000,20)
 for(i in 1:20){
   for(j in 1:4973){
     prob_num[j,i]<-as.numeric(prob_new[j,i])
