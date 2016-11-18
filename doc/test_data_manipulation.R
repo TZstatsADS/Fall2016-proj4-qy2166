@@ -19,7 +19,7 @@ colnames(sound_test)<-columnnames_test
 ############################################################
 ######               length of each cell              ######
 ############################################################
-lengthcount-test<-matrix(0,nrow(sound_test),ncol(sound_test))
+lengthcount_test<-matrix(0,nrow(sound_test),ncol(sound_test))
 for(i in 1:nrow(sound_test)){
   for(j in 1:ncol(sound_test)){
     lengthcount_test[i,j]<-length(sound_test[i,j][[1]])
