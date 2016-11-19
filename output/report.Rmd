@@ -3,13 +3,15 @@ title: "Rock On Lyrics: Report for Project 4"
 output: html_notebook
 ---
 
+# Rock On Lyrics: Report for Project 4
+
 ### Name: Qing Yin
 
 When someone gives you a piece of melody, is it possible for you to fill in the lyrics? When you listen to some random music, is it possible for you to predict the words that may appear in this music?
 
 These questions may sound very hard. Someone will state that each person has his/her own unique ideas, which are distinct from others, so it is almost impossible to predict what kinds of vocabularies will appear in a song. However, according to the music features of songs, people can separate songs into several categories, including lyric songs, rock songs, etc. In each category, the lyrics may have similar structures, and therefore, we may have some chance to correctly predict the lyrics if we correctly extract music features and efficiently connect music features to lyrics.
 
-The first important step is feature extraction. If we get good features, we can classify songs into correct music-based categories, which will have positive effect on the future prediction. For this part, we are given some fields associated with songs and according to these fields, we need to extract crucial features. The features that I extract include loudness, tempo, duration, average bar duration, average tatum duration and pitch.
+**The first important step** is feature extraction. If we get good features, we can classify songs into correct music-based categories, which will have positive effect on the future prediction. For this part, we are given some fields associated with songs and according to these fields, we need to extract crucial features. The features that I extract include loudness, tempo, duration, average bar duration, average tatum duration and pitch.
 
 #### loudness
 
@@ -23,19 +25,28 @@ summary(fit_loudness)
 
 We can see that the adjusted $R^2$ is 0.9801, which indicates a pretty good linear fit. We also can see that p-value for each coefficient is small, which means we can reject the null hypothesis that $\beta_i = 0$.
 
+![Fig 1 Loudness](https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Lindos1.svg/400px-Lindos1.svg.png)
+
 #### tempo, duration, average bar duration and average tatum duration
 
 As for tempo, the formula is the number of beats / the duration of the song (in minutes) and the unit of tempo is BPM (beats per minute). As for duration, we can get the approximate duration of a song by taking the start time of the last beat. Referring to the average bar duration and the average tatum duration, because I notice that in each song, the duration between two consecutive bars is almost the same and the duration between two consecutive tatums is also almost the same, I think it is reasonable to use the average bar duration and the average tatum duration as two representative features.
+
+![Figure 2 Tempo](https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/MozartExcerptK331.svg/2000px-MozartExcerptK331.svg.png)
 
 #### pitch
 
 I read a document about the feature extraction method for the pitch, and the author suggests us to extract the features by combining all segments pitches together, doing 500 means clustering, finding which cluster each segment belongs to, and drawing histograms for each cluster in each song. Since each segment in each song has 12 pitch features, which involved with musical notes, it is reasonable to extract features in this way.
 
+
+![Figure 3 Pitch](http://www.musiccrashcourses.com/images/other/soundwave.png)
+
 #### timbre
 
 I also try to extract features for timbre, but the 500 means clustering does not converge after 500 iterations and the prediction results does not show any improvements after adding these features, so I just discard these features.
 
-The second step is topic modelling. If we get good conclusions from lyrics, we can make better connections between music features and lyrics. Therefore, I use topic modelling method to derive top topics and give each song a specific topic, and at the same time, compute the probability of a specific word in a song given the song is in a specific topic. The top rank words for each topic are as follows: 
+![Figure 4 Timbre](http://www.simplifyingtheory.com/wp-content/uploads/2014/07/timbre-of-the-instruments.png)
+
+**The second step** is topic modelling. If we get good conclusions from lyrics, we can make better connections between music features and lyrics. Therefore, I use topic modelling method to derive top topics and give each song a specific topic, and at the same time, compute the probability of a specific word in a song given the song is in a specific topic. The top rank words for each topic are as follows: 
 
 ```{r}
 setwd("C:/Users/Qing/Documents/GitHub/Fall2016-proj4-qy2166/data")
@@ -43,8 +54,8 @@ library(DT)
 datatable(read.csv("termsrank20.csv"))
 ```
 
-The third important step is classification. In this step, the connection between music features and lyrics is established. I use the Random Forest to manipulate the multiple labels classification. After doing classification, I will derive a probability matrix with each row specified as the probabilities that each song belongs to specific topics, since the Random Forest is based on the majority vote.
+**The third important step** is classification. In this step, the connection between music features and lyrics is established. I use the Random Forest to manipulate the multiple labels classification. After doing classification, I will derive a probability matrix with each row specified as the probabilities that each song belongs to specific topics, since the Random Forest is based on the majority vote.
 
-The last step is using the Bayes formula to predict possible lyrics. The formula is as follow: $\sum$ P(word in a song|$topic_k$)P($topic_k$|music features of the song). By using the formula, we can finally get a rank of words in each song.
+**The last step** is using the Bayes formula to predict possible lyrics. The formula is as follow: $\sum$ P(word in a song|$topic_k$)P($topic_k$|music features of the song). By using the formula, we can finally get a rank of words in each song.
 
 Now, we can rock on lyrics.
